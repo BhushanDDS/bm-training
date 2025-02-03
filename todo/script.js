@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const buttonTodo = document.getElementById("button-todo");
     const ulTodo = document.getElementById("ul-todo");
 
-    let editMode = false;
-    let editElement = null;
+
 
     buttonTodo.addEventListener("click", () => {
         const text = inputTodo.value;

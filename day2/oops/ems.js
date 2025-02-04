@@ -50,5 +50,5 @@ console.log(`Manager Bonus: $${manager.calculateBonus()}`);
 // const engineer = new Engineer("raj", 2, 80000);
 // console.log(`Engineer Bonus: $${engineer.calculateBonus()}`);
 
-const engineer = new Engineer("raj", 2, 80000);
-console.log(`Engineer Bonus: $${Intern.calculateBonus()}`);
+const intern = new Intern("raj", 2, 80000);
+console.log(`Engineer Bonus: $${intern.calculateBonus()}`);

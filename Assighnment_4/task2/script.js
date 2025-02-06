@@ -74,3 +74,32 @@ let res = bookLibrary.getBookByAuthor('Umesh');
 console.log(res);
 bookLibrary.removeBook('Read books');
 // bookLibrary.getAllBooks()
+
+/*
+Output:
+
+PS C:\Users\bhushan\Desktop\BM\bm-training\Assighnment_4\task2> node .\script.js
+Done
+{ title: 'new Book ', author: 'Umesh', yearPublished: '2000' }
+undefined
+deleted
+Books
+book title : Dont read books
+ book author Pandurang
+ published in 2016
+
+
+book title : Dont read books part 2
+ book author Uzaif
+ published in 2011
+
+
+book title : Read books part 2
+ book author Onkar
+ published in 2023
+
+
+book title : new Book
+ book author Umesh
+ published in 2000
+ */

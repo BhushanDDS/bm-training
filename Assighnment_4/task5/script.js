@@ -13,11 +13,6 @@ const processData = function(arr, callback) {
     if (callback === findMax) {
         console.log(callback(arr));
     }
-
-
-
-
-
 }
 
 function calculateSum(arr) {
@@ -48,3 +43,12 @@ processData([1, 2, 3, 4], filterOut);
 processData([1, 2, 3, 4], doubleNumbers);
 processData([1, 2, 3, 4], calculateSum);
 processData([1, 66, 3, 4], findMax);
+
+/*
+output :
+PS C:\Users\bhushan\Desktop\BM\bm-training\Assighnment_4\task5> node .\script.js
+[ 2, 4 ]
+[ 2, 4, 6, 8 ]
+10
+66
+*/

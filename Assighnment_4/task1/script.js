@@ -24,3 +24,13 @@ const consumePromice = async() => {
     }
 }
 consumePromice();
+
+/*
+output :
+
+PS C:\Users\bhushan\Desktop\BM\bm-training\Assighnment_4\task1> node .\script.js
+[ 'name1', 'name2', 'name3', 'name4' ]
+[ 'name1', 'name2', 'name3', 'name4' ]
+PS C:\Users\bhushan\Desktop\BM\bm-training\Assighnment_4\task1> 
+
+*/

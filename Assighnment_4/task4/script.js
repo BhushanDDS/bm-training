@@ -35,10 +35,10 @@ const resFilterElectronics = producObj.filter((val) => {
 
 const calculateTotalPriceByReduce = producObj.reduce((acc, val) => {
 
-    return acc + val.price, 0;
-})
+    return acc + Number(val.price);
+}, 0)
 console.log(calculateTotalPriceByReduce);
 
 
-const totalPriceByCategory = producObj.map((val) => val).filter((val => val.categorie = 'Electronics')).reduce((acc, val) => acc + val.price, 0)
+const totalPriceByCategory = producObj.map((val) => val).filter((val => val.categorie === 'Electronics')).reduce((acc, val) => { return acc + Number(val.price) }, 0)
 console.log(totalPriceByCategory);

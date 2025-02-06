@@ -22,6 +22,11 @@ const processData = function(arr, callback) {
     if (callback === doubleNumbers) {
         console.log(callback(arr));
     }
+    if (callback === findMax) {
+        console.log(callback(arr));
+    }
+
+
 
 
 
@@ -40,7 +45,18 @@ function doubleNumbers(arr) {
     return arr.map((val) => val * 2);
 }
 
+function findMax(arr) {
+    return arr.reduce((acc, val) => {
+
+        if (acc < val) {
+            return val;
+        } else {
+            return acc;
+        }
+    }, arr[0])
+}
 
 processData([1, 2, 3, 4], filterOut);
 processData([1, 2, 3, 4], doubleNumbers);
 processData([1, 2, 3, 4], calculateSum);
+processData([1, 66, 3, 4], findMax);

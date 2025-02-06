@@ -81,12 +81,12 @@ Output:
 PS C:\Users\bhushan\Desktop\BM\bm-training\Assighnment_4\task2> node .\script.js
 Done
 { title: 'new Book ', author: 'Umesh', yearPublished: '2000' }
-undefined
 deleted
 Books
 book title : Dont read books
  book author Pandurang
  published in 2016
+
 
 
 book title : Dont read books part 2

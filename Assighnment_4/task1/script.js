@@ -21,8 +21,6 @@ const consumePromice = async() => {
 
     } catch (err) {
         console.log(err);
-
-
     }
 }
 consumePromice();

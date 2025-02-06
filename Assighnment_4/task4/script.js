@@ -25,13 +25,13 @@ const namesInUpperCase =
     producObj.map(val => {
         return val.name.toUpperCase();
     })
-    // console.log(namesInUpperCase);
+console.log(namesInUpperCase);
 
 const resFilterElectronics = producObj.filter((val) => {
-        return val.categorie === 'Electronics'
+    return val.categorie === 'Electronics'
 
-    })
-    // console.log(resFilterElectronics);
+})
+console.log(resFilterElectronics);
 
 const calculateTotalPriceByReduce = producObj.reduce((acc, val) => {
 

@@ -2,12 +2,12 @@ document.addEventListener("DOMContentLoaded", async function() {
     const productsContainer = document.getElementById("products-container");
     const productForm = document.getElementById("product-form");
 
-    function failed(response) {
+    function responseForFailedRequests(response = undefined) {
         Toastify({
             text: `error lol  ${response.status}`,
             duration: 3000,
             gravity: "top",
-            position: "right",
+            position: "center",
             backgroundColor: "red",
         }).showToast();
 
@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     function nowAttachingTheEventToNewlyAppendedElement() {
+
         document.querySelectorAll(".delete-btn").forEach(button => {
             button.addEventListener("click", function() {
                 deleteProduct(this.getAttribute("data-id"));
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     text: `Product created successfully! ${response.status}`,
                     duration: 3000,
                     gravity: "top",
-                    position: "right",
+                    position: "center",
                     backgroundColor: "green",
                 }).showToast();
                 productForm.reset();
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             }
         } catch (error) {
             console.error("Error creating product:", error);
-            failed(response);
+            responseForFailedRequests(response);
         }
     }
     async function updateProduct(productId) {
@@ -103,13 +104,13 @@ document.addEventListener("DOMContentLoaded", async function() {
                     text: `Product updated successfully! \n response status: ${response.status}`,
                     duration: 3000,
                     gravity: "top",
-                    position: "right",
+                    position: "center",
                     backgroundColor: "blue",
                 }).showToast();
             }
         } catch (error) {
             console.error("Error updating product:", error);
-            failed(response);
+            responseForFailedRequests(response);
         }
     }
     async function deleteProduct(productId) {
@@ -120,13 +121,13 @@ document.addEventListener("DOMContentLoaded", async function() {
                     text: "Product deleted successfully!",
                     duration: 3000,
                     gravity: "top",
-                    position: "right",
+                    position: "center",
                     backgroundColor: "red",
                 }).showToast();
             }
 
         } catch (error) {
-            failed(response)
+            responseForFailedRequests(response)
         }
     }
 
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             displayProducts(response.data);
         } catch (error) {
             console.error(`Error fetching category "${category}":`, error);
-            alert("Failed to load category products.");
+            responseForFailedRequests()
         }
     }
 

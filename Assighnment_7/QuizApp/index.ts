@@ -76,7 +76,7 @@ class Quiz {
 
     checkAnswer(ans: string) {
         if (!this.btnClicker) {
-            this.btnClicker = true; // Mark that the user has answered
+            this.btnClicker = true; 
             if (ans === this.ourQuestions[this.qsIndex].correctAnswer) {
                 this.score++;
             }
@@ -84,25 +84,7 @@ class Quiz {
 
         }
     }
-    // checkAnswer(ans: string) {
-       
-    //         if (ans === this.ourQuestions[this.qsIndex].correctAnswer) {
-    //             this.score++;
-    //         }
 
-    //         const nextBtn = document.getElementById("next-question");
-
-    //         if (nextBtn) {
-    //             nextBtn.addEventListener("click", () => this.showNextQuestion());
-            
-    //         //  this.showNextQuestion();
-
-
-
-    //     }
-        
-      
-    // }
     setupNextButton() {
         const nextBtn = document.getElementById("next-question");
         if (nextBtn) {

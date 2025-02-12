@@ -30,19 +30,21 @@ class Quiz {
 
     private score: number;
     private qsIndex: number;
+    private btnClicker:boolean;
 
     constructor() {
         this.score = 0;
         this.qsIndex = 0;
         this.displayQuestion();
+        this.btnClicker=false;
+        this.setupNextButton();
+       
 
-        // Attach event listener to "Next Question" button
-        const nextBtn = document.getElementById("next-question");
-        if (nextBtn) {
-            nextBtn.addEventListener("click", () => this.showNextQuestion());
-        }
+       
     }
 
+    
+    
     getScore(): number {
         return this.score;
     }
@@ -51,31 +53,70 @@ class Quiz {
         const questionDisplay = document.getElementById("question-display");
         const answerChoices = document.getElementById("answer-choices");
 
-        if (!questionDisplay || !answerChoices) {
-            console.error("Question display or answer choices not found!");
-            return;
+     
+
+        if(questionDisplay && answerChoices){
+            const currentQs = this.ourQuestions[this.qsIndex];
+            questionDisplay.textContent = currentQs.question;
+            answerChoices.innerHTML = ""; 
+            this.btnClicker=false;
+            currentQs.choices.forEach(answer => {
+                const button = document.createElement("button");
+                button.id='created';
+                button.textContent = answer;
+                button.addEventListener("click", () => this.checkAnswer(answer)) ;
+                answerChoices.appendChild(button);
+            });
         }
 
-        const currentQs = this.ourQuestions[this.qsIndex];
-        questionDisplay.textContent = currentQs.question;
-        answerChoices.innerHTML = ""; // Clear previous choices
-
-        currentQs.choices.forEach(answer => {
-            const button = document.createElement("button");
-            button.textContent = answer;
-            button.addEventListener("click", () => this.checkAnswer(answer));
-            answerChoices.appendChild(button);
-        });
+        
     }
 
+    
+
     checkAnswer(ans: string) {
-        if (ans === this.ourQuestions[this.qsIndex].correctAnswer) {
-            this.score++;
+        if (!this.btnClicker) {
+            this.btnClicker = true; // Mark that the user has answered
+            if (ans === this.ourQuestions[this.qsIndex].correctAnswer) {
+                this.score++;
+            }
+            this.showNextQuestion()
+
         }
-        this.showNextQuestion();
+    }
+    // checkAnswer(ans: string) {
+       
+    //         if (ans === this.ourQuestions[this.qsIndex].correctAnswer) {
+    //             this.score++;
+    //         }
+
+    //         const nextBtn = document.getElementById("next-question");
+
+    //         if (nextBtn) {
+    //             nextBtn.addEventListener("click", () => this.showNextQuestion());
+            
+    //         //  this.showNextQuestion();
+
+
+
+    //     }
+        
+      
+    // }
+    setupNextButton() {
+        const nextBtn = document.getElementById("next-question");
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => this.showNextQuestion());
+        }
     }
 
     showNextQuestion() {
+
+        if (!this.btnClicker) {
+            alert("Please select an answer before proceeding.");
+            return;
+        }
+
         this.qsIndex++;
         if (this.qsIndex < this.ourQuestions.length) {
             this.displayQuestion();
@@ -85,9 +126,28 @@ class Quiz {
     }
 
     endQuiz() {
+        
         const scoreDisplay = document.getElementById("score-display");
-        if (scoreDisplay) {
+        const nextBtn = document.getElementById("next-question");
+        if (scoreDisplay && nextBtn) {
+
             scoreDisplay.textContent = `Your score is ${this.score} out of ${this.ourQuestions.length}.`;
+            const restartButton= document.createElement('button');
+            restartButton.textContent="Restart Game"
+            restartButton.id='restart';
+            nextBtn?.replaceWith(restartButton);
+
+            document.getElementById('restart')?.addEventListener('click',()=>{
+                this.score = 0;
+                this.qsIndex = 0;
+                this.displayQuestion();
+                scoreDisplay.textContent="Score: 0"
+                restartButton?.replaceWith(nextBtn);
+                
+            })
+            
+
+
         }
     }
 }

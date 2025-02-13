@@ -156,6 +156,17 @@ class Expenses {
             filteredExpenses.forEach(expense => this.createTodo(expense));
         }
     }
+
+    filterByDate(date:string):void{
+        const eleList = document.querySelector('#ul-expenses');
+        if (eleList) {
+            eleList.innerHTML = '';
+            const filteredExpenses = this.expenseArray.filter(expense => expense.date.includes(date));
+            filteredExpenses.forEach(expense => this.createTodo(expense));
+        }
+
+        
+    }
 }
 
 const user1 = new Expenses('Pandurang');
@@ -219,3 +230,36 @@ document.getElementById('ul-category')?.addEventListener("click", (event) => {
         }
     }
 });
+
+
+document.getElementById('button-date')?.addEventListener("click",()=>{
+
+    const inputdate=document.getElementById('input-date') as HTMLInputElement;
+    
+        const data= inputdate.value.trim();
+        console.log(data);
+        if(data){
+            console.log(data);
+            
+            user1.filterByDate(data);
+        }
+
+})
+
+document.getElementById('button-cat')?.addEventListener("click",()=>{
+
+    const inputdate=document.getElementById('input-cat') as HTMLInputElement;
+    
+        const data= inputdate.value.trim();
+        console.log(data);
+        if(data){
+            console.log(data);
+            
+            user1.filterExpensesByCategory(data);
+        }
+
+})
+
+
+
+

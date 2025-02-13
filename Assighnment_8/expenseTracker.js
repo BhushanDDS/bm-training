@@ -1,4 +1,4 @@
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f, _g;
 var Expenses = /** @class */ (function () {
     function Expenses(name) {
         this.categoryArray = [];
@@ -120,6 +120,15 @@ var Expenses = /** @class */ (function () {
             filteredExpenses.forEach(function (expense) { return _this.createTodo(expense); });
         }
     };
+    Expenses.prototype.filterByDate = function (date) {
+        var _this = this;
+        var eleList = document.querySelector('#ul-expenses');
+        if (eleList) {
+            eleList.innerHTML = '';
+            var filteredExpenses = this.expenseArray.filter(function (expense) { return expense.date.includes(date); });
+            filteredExpenses.forEach(function (expense) { return _this.createTodo(expense); });
+        }
+    };
     return Expenses;
 }());
 var user1 = new Expenses('Pandurang');
@@ -176,5 +185,23 @@ var user1 = new Expenses('Pandurang');
                 categoryItem.remove();
             }
         }
+    }
+});
+(_f = document.getElementById('button-date')) === null || _f === void 0 ? void 0 : _f.addEventListener("click", function () {
+    var inputdate = document.getElementById('input-date');
+    var data = inputdate.value.trim();
+    console.log(data);
+    if (data) {
+        console.log(data);
+        user1.filterByDate(data);
+    }
+});
+(_g = document.getElementById('button-cat')) === null || _g === void 0 ? void 0 : _g.addEventListener("click", function () {
+    var inputdate = document.getElementById('input-cat');
+    var data = inputdate.value.trim();
+    console.log(data);
+    if (data) {
+        console.log(data);
+        user1.filterExpensesByCategory(data);
     }
 });

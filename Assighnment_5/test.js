@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function() {
-    const productsContainer = document.getElementById("products-container");
+    const productsContainer = document.getElementById("products-container") as HTMLDivElement;
 
 
     document.querySelectorAll(".category-btn").forEach(button => {

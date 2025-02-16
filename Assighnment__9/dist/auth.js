@@ -1,29 +1,20 @@
-interface User {
-    username: string;
-    password: string;
-}
-
-const validCredentials: User = {
+const validCredentials = {
     username: "admin",
     password: "admin123"
 };
-
-export const authenticate = (username: string, password: string): boolean => {
+export const authenticate = (username, password) => {
     return username === validCredentials.username && password === validCredentials.password;
 };
-
-export const checkAuth = (): boolean => {
+export const checkAuth = () => {
     return sessionStorage.getItem("isAuthenticated") === "true";
 };
-
-export const login = (username: string, password: string): boolean => {
+export const login = (username, password) => {
     if (authenticate(username, password)) {
         sessionStorage.setItem("isAuthenticated", "true");
         return true;
     }
     return false;
 };
-
-export const logout = (): void => {
+export const logout = () => {
     sessionStorage.removeItem("isAuthenticated");
 };

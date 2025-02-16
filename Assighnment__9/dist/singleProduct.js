@@ -1,28 +1,19 @@
-document.addEventListener("DOMContentLoaded", async function() {
+"use strict";
+document.addEventListener("DOMContentLoaded", async function () {
     const productDetails = document.getElementById("product-details");
-    if (!productDetails) return;
-
-    interface Product {
-        id: number;
-        title: string;
-        price: number;
-        description: string;
-        image: string;
-        category: string;
-    }
-
+    if (!productDetails)
+        return;
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get("id");
-
     if (!productId) {
         productDetails.innerHTML = `<p class="text-danger">Invalid product ID.</p>`;
         return;
     }
-
     try {
-        const response = await axios.get<Product>(`https://fakestoreapi.com/products/${productId}`);
-        const product = response.data;
-
+        const response = await fetch(`https://fakestoreapi.com/products/${productId}`);
+        if (!response.ok)
+            throw new Error("Failed to fetch product details");
+        const product = await response.json();
         productDetails.innerHTML = `
             <div class="col-md-8 mx-auto">
                 <div class="card shadow-lg border-0">
@@ -37,7 +28,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                 </div>
             </div>
         `;
-    } catch (error) {
+    }
+    catch (error) {
         productDetails.innerHTML = `<p class="text-danger">Error loading product details.</p>`;
         console.error(error);
     }

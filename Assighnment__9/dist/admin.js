@@ -1,17 +1,9 @@
+import axios from 'axios';
+import Toastify from 'toastify-js';
 document.addEventListener("DOMContentLoaded", async function () {
-    const productsContainer = document.getElementById("products-container") as HTMLElement;
-    const productForm = document.getElementById("product-form") as HTMLFormElement | null;
-
-    interface Product {
-        id: number;
-        title: string;
-        price: number;
-        description: string;
-        image: string;
-        category: string;
-    }
-
-    const responseForFailedRequests = async (error: any) => {
+    const productsContainer = document.getElementById("products-container");
+    const productForm = document.getElementById("product-form");
+    const responseForFailedRequests = async (error) => {
         Toastify({
             text: `Error: ${error.response?.status || "Unknown Error"}`,
             duration: 3000,
@@ -20,18 +12,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             backgroundColor: "red",
         }).showToast();
     };
-
     const fetchProducts = async () => {
         try {
-            const response = await axios.get<Product[]>("https://fakestoreapi.com/products");
+            const response = await axios.get("https://fakestoreapi.com/products");
             displayProducts(response.data);
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error fetching products:", error);
             responseForFailedRequests(error);
         }
     };
-
-    function displayProducts(products: Product[]) {
+    function displayProducts(products) {
         productsContainer.innerHTML = "";
         products.forEach(product => {
             const productCard = document.createElement("div");
@@ -51,36 +42,33 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
         attachEventListeners();
     }
-
     function attachEventListeners() {
         document.querySelectorAll(".delete-btn").forEach(button => {
             button.addEventListener("click", (e) => {
-                const target = e.target as HTMLElement;
+                const target = e.target;
                 const productId = target.getAttribute("data-id");
-                if (productId) deleteProduct(parseInt(productId));
+                if (productId)
+                    deleteProduct(parseInt(productId));
             });
         });
-
         document.querySelectorAll(".update-btn").forEach(button => {
             button.addEventListener("click", (e) => {
-                const target = e.target as HTMLElement;
+                const target = e.target;
                 const productId = target.getAttribute("data-id");
-                if (productId) updateProduct(parseInt(productId));
+                if (productId)
+                    updateProduct(parseInt(productId));
             });
         });
     }
-
-    async function createProduct(e: Event) {
+    async function createProduct(e) {
         e.preventDefault();
-        
-        const newProduct: Omit<Product, 'id'> = {
-            title: (document.getElementById("product-title") as HTMLInputElement).value,
-            price: parseFloat((document.getElementById("product-price") as HTMLInputElement).value),
-            description: (document.getElementById("product-description") as HTMLTextAreaElement).value,
-            image: (document.getElementById("product-image") as HTMLInputElement).value,
-            category: (document.getElementById("product-category") as HTMLInputElement).value
+        const newProduct = {
+            title: document.getElementById("product-title").value,
+            price: parseFloat(document.getElementById("product-price").value),
+            description: document.getElementById("product-description").value,
+            image: document.getElementById("product-image").value,
+            category: document.getElementById("product-category").value
         };
-
         try {
             const response = await axios.post("https://fakestoreapi.com/products", newProduct);
             if (response.status === 201) {
@@ -93,21 +81,20 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }).showToast();
                 fetchProducts();
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error creating product:", error);
             responseForFailedRequests(error);
         }
     }
-
-    async function updateProduct(productId: number) {
-        const updatedProduct: Partial<Product> = {
+    async function updateProduct(productId) {
+        const updatedProduct = {
             title: "Updated Product Name",
             price: 49.99,
             description: "This is a manually updated product description.",
             image: "https://via.placeholder.com/150",
             category: "electronics"
         };
-
         try {
             const response = await axios.put(`https://fakestoreapi.com/products/${productId}`, updatedProduct);
             if (response.status === 200) {
@@ -120,13 +107,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }).showToast();
                 fetchProducts();
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error updating product:", error);
             responseForFailedRequests(error);
         }
     }
-
-    async function deleteProduct(productId: number) {
+    async function deleteProduct(productId) {
         try {
             const response = await axios.delete(`https://fakestoreapi.com/products/${productId}`);
             if (response.status === 200) {
@@ -139,35 +126,34 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }).showToast();
                 fetchProducts();
             }
-        } catch (error) {
+        }
+        catch (error) {
             responseForFailedRequests(error);
         }
     }
-
-    async function fetchProductsByCategory(category: string | null) {
-        if (!category) return;
+    async function fetchProductsByCategory(category) {
+        if (!category)
+            return;
         try {
-            const response = await axios.get<Product[]>(`https://fakestoreapi.com/products/category/${category}`);
+            const response = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
             displayProducts(response.data);
-        } catch (error) {
+        }
+        catch (error) {
             console.error(`Error fetching category "${category}":`, error);
             responseForFailedRequests(error);
         }
     }
-
     document.querySelectorAll(".category-btn").forEach(button => {
         button.addEventListener("click", (e) => {
-            const target = e.target as HTMLElement;
+            const target = e.target;
             const categoryBtn = target.closest(".category-btn");
             const selectedCategory = categoryBtn?.getAttribute("data-category");
-            if(selectedCategory){
+            if (selectedCategory) {
                 fetchProductsByCategory(selectedCategory);
-
             }
         });
     });
-
-    if (productForm) productForm.addEventListener("submit", createProduct);
-
+    if (productForm)
+        productForm.addEventListener("submit", createProduct);
     fetchProducts();
 });

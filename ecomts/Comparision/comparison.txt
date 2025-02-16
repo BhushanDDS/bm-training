@@ -1,0 +1,43 @@
+Creating using vite 
+command : npx create vite my-app-ts --template react-ts
+here hitting npx and creating vite application named "my-app-ts" with typescript
+what I got : 
+public folder with an image
+src folder with assests subfolder having more images
+an App.css , App.tsx ,index.css , main.tsx 
+an .gitignore
+and index.html is outside the src with configs
+We get 
+-tsconfig 
+-package.json 
+
+its lightwieght and fast because : 
+node modules are not installed while initiating the project ; they do afterwars , as we can insatll things that we want 
+Not like create-react-app where we have this script and web vitals utilitites also pre installed 
+no unneccery packages are aleready installed  . Only neccesry packages are installed
+npm run dev will heat the application on 
+Hot module replacement  (Esbuild)
+-direactly supports typescript
+
+
+
+Createing using create react app 
+npx create-react-app mu-app-ts --template typescript 
+what I got : 
+node modules 
+public  : images 
+src : App.tsx 
+	index.tsx(main.tsx in vite)
+takes more time to load 
+
+slow as it uses Webpack and procsses the entire app before serving  changes 
+it has hidden webpack config - eject (makes it more slow )
+- uses babel to support typescript
+
+
+
+Es-Module based hot module replacement 
+-allows a react app to update only the changed modules in the browser withour reloading the entire page 
+Webpack HMR reprocesses and rebundles files, which slows down large projects.
+Vite HMR only reloads the affected modules using native ES Modules, making it super fast. 
+

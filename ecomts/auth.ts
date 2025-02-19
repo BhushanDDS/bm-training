@@ -31,8 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const email = (document.getElementById("email") as HTMLInputElement ).value;
             const password = (document.getElementById("password")as HTMLInputElement). value;
 
-            const response = await fetch("https://fakestoreapi.com/users");
-            const users = await response.json();
+            const users = await axios.get("https://fakestoreapi.com/users");
 
             const isValidUser = users.some((user: { email: string, password: string }) => user.email === "john@gmail.com" && password === "m38rmF$");
 

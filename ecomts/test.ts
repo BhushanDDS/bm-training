@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const fetchProductsByCategory = async (category: string) => {
         try {
+            if(category==="All Products"){
+                fetchProducts();
+            }
             const response = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
             displayProducts(response.data);
         } catch (error) {

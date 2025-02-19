@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         price: number;
         description: string;
         image: string;
-        category: string;
+        category: string; 
     }
 
     const responseForFailedRequests = async (error: any) => {
@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function createProduct(e: Event) {
         e.preventDefault();
-        
         const newProduct: Omit<Product, 'id'> = {
             title: (document.getElementById("product-title") as HTMLInputElement).value,
             price: parseFloat((document.getElementById("product-price") as HTMLInputElement).value),
